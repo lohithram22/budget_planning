@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>Smart Budget Planner</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/logo/favicon.png"/>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Custom Styles -->
+    <style>
+        /* General styling */
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f5f7;
+            color: #333;
+        }
+
+        /* Top Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 80px;
+            background-color: #1a1a2e;
+            color: white;
+        }
+
+        .navbar .logo a {
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            align-items: center;
+            margin-left: -10px; /* Adjust this to move buttons left */
+        }
+
+        .navbar .nav-links a {
+            margin-left: 35px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .navbar .nav-links a:hover {
+            color: #e74c3c;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none; /* Hide dropdown content by default */
+            position: absolute;
+            background-color:#1a1a2e; /* Set background color */
+            min-width: 160px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #adb8c9;
+        }
+
+        .dropdown-content .divider {
+            height: 1px;
+            background-color: #e74c3c; /* Divider color */
+            margin: 0; /* Remove margin */
+        }
+
+        /* Show dropdown on hover */
+        .dropdown:hover .dropdown-content {
+            display: block; /* Show dropdown content on hover */
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)), url('assets/img/hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3em;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-size: 1.5em;
+            margin: 20px 0;
+            max-width: 600px;
+        }
+
+        .hero .cta-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #e74c3c;
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 16px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .hero .cta-btn:hover {
+            background-color: #c0392b;
+        }
+
+        /* Features Section */
+        .features {
+            display: flex;
+            justify-content: space-around;
+            margin: 50px auto;
+            padding: 0 40px;
+        }
+
+        .feature-btn {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            width: 30%;
+            text-decoration: none;
+            color: #333;
+            display: block; /* Makes it behave like a button */
+        }
+
+        .feature-btn:hover {
+            transform: translateY(-10px);
+            background-color: #f1f1f1; /* Light background on hover */
+        }
+
+        .feature-btn i {
+            font-size: 40px;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+
+        .feature-btn h3 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .feature-btn p {
+            font-size: 1em;
+            color: #7f8c8d;
+            line-height: 1.5;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background-color: #f7f8fa;
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        .testimonials h2 {
+            font-size: 2em;
+            margin-bottom: 40px;
+        }
+
+        .testimonial-box {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .testimonial {
+            font-style: italic;
+            font-size: 1.2em;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a1a2e;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #e74c3c;
+            text-decoration: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .features {
+                flex-direction: column;
+                padding: 0 20px;
+            }
+
+            .feature-btn {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <a href="#">Smart Budget Planner</a>
+        </div>
+        <div class="nav-links">
+            <a href="#">Contact</a>
+            <div class="dropdown">
+                <a href="#" class="profile-btn">{{name}}</a>
+                <div class="dropdown-content">
+                    <a href="view-profile">View Profile</a>
+                    <div class="divider"></div> <!-- Divider line -->
+                    <a href="logout">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Hello!! {{name}}</h1>
+            <h1>Plan & Manage Your Budget Effortlessly</h1>
+            <p>Track your spending, manage your savings, and achieve your financial goals with our intuitive budget planner.</p>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <a href="budget_plan" class="feature-btn">
+            <i class="fas fa-table"></i>
+            <h3>View Budget Plan</h3>
+            <p>You can see your monthly budget plan to keep you on track</p>
+        </a>
+        <a href="update-expenses" class="feature-btn">
+            <i class="fas fa-wallet"></i>
+            <h3>Update Expenses</h3>
+            <p>Keep track of every expense and ensure you're staying within your budget.</p>
+        </a>
+        <a href="visualize-expenses" class="feature-btn">
+            <i class="fas fa-chart-line"></i>
+            <h3>Visualize Expenses</h3>
+            <p>Here's the visual representation of your expenses</p>
+        </a>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h2>What Our Users Say</h2>
+        <div class="testimonial-box">
+            <p class="testimonial">"The Smart Budget Planner has completely changed how I manage my finances. It's so easy to use, and I've been able to save so much more!"</p>
+            <p class="testimonial-author">- Sarah J.</p>
+
+            <p class="testimonial">"I love the real-time expense tracking feature. It helps me stay on top of my spending and avoid unnecessary expenses."</p>
+            <p class="testimonial-author">- Michael R.</p>
+        </div

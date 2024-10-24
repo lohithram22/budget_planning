@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customize Preferences</title>
+
+    <style>
+        /* General styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        /* Title styling */
+        h2 {
+            text-align: center;
+            font-size: 28px;
+            color: #34495e;
+            margin-bottom: 30px;
+            font-family: 'Georgia', serif;
+            letter-spacing: 1px;
+        }
+
+        /* Form styling */
+        form {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-group select {
+            background-color: #f9f9f9;
+        }
+
+        .submit-btn {
+            padding: 12px 5px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        /* Flexbox container for buttons */
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .button-container a, .button-container button {
+            width: 48%;
+        }
+
+        /* Responsive design */
+        @media screen and (max-width: 768px) {
+            form {
+                width: 100%;
+            }
+
+            .button-container a, .button-container button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+
+        .form-container {
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            width: 400px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Custom checkbox styling */
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        label.custom-checkbox {
+            position: relative;
+            padding-left: 35px;
+            cursor: pointer;
+            font-size: 18px;
+            display: inline-block;
+        }
+
+        label.custom-checkbox:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 25px;
+            height: 25px;
+            border: 2px solid #f39c12; /* Orange border */
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        input[type="checkbox"]:checked + label.custom-checkbox:before {
+            background-color: #28a745; /* Green background */
+            border: none;
+        }
+
+        input[type="checkbox"]:checked + label.custom-checkbox:after {
+            content: "\2713"; /* Unicode checkmark */
+            position: absolute;
+            left: 6px;
+            top: 2px;
+            color: white;
+            font-size: 20px;
+        }
+    </style>
+
+    <script>
+        function toggleFields() {
+            var weightField = document.getElementById('weightage');
+            var amountField = document.getElementById('amount');
+
+            if (weightField.value !== '') {
+                amountField.disabled = true;
+            } else {
+                amountField.disabled = false;
+            }
+
+            if (amountField.value !== '') {
+                weightField.disabled = true;
+            } else {
+                weightField.disabled = false;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const preferences = [
+                'Education', 'Entertainment', 'Medical', 'Food',
+                'Transportation', 'Kids', 'Pets', 'Clothing',
+                'Savings', 'Maintenance', 'Personal Expenses', 'EMI', 'Other'
+            ];
+
+            const dropdowns = document.querySelectorAll('.preference-dropdown');
+
+            dropdowns.forEach(dropdown => {
+                preferences.forEach(pref => {
+                    const option = document.createElement('option');
+                    option.value = pref;
+                    option.text = pref;
+                    dropdown.appendChild(option);
+                });
+            });
+
+            function updateDropdowns() {
+                const selectedValues = Array.from(dropdowns)
+                    .map(dropdown => dropdown.value)
+                    .filter(value => value !== '');
+
+                dropdowns.forEach(dropdown => {
+                    Array.from(dropdown.options).forEach(option => {
+                        if (selectedValues.includes(option.value) && option.value !== dropdown.value) {
+                            option.disabled = true;
+                        } else {
+                            option.disabled = false;
+                        }
+                    });
+                });
+            }
+
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('change', updateDropdowns);
+            });
+        });
+    </script>
+</head>
+<body>
+
+<h2>Customize Your Preferences</h2>
+
+<form action="customize" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+    </div>
+    <div class="form-container">
+        <!-- Preference Dropdowns -->
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" name="preference" class="preference-dropdown">
+                <option value="">Select Category</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="weightage">Weight</label>
+        <input type="number" id="weightage" name="weightage" value="{{ preference.weightage }}" oninput="toggleFields()" placeholder="Enter weight or leave empty">
+    </div>
+
+    <div class="form-group">
+        <label for="amount">Amount</label>
+        <input type="number" id="amount" name="amount" value="{{ preference.amount }}" oninput="toggleFields()" placeholder="Enter amount or leave empty">
+    </div>
+
+    <!-- Custom Checkbox -->
+    <div class="form-group">
+        <input type="checkbox" id="is_constant" name="is_constant">
+        <label class="custom-checkbox" for="is_constant">Should we keep this Category Constant?</label>
+    </div>
+
+    <div class="button-container">
+        <a href="" class="submit-btn">Modify Another Category</a>
+        <button type="submit" class="submit-btn">Save Preferences</button>
+    </div>
+</form>
+
+</body>
+</html>

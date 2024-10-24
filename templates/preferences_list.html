@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preferences List</title>
+    <style>
+        /* General styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        /* Title styling (h1) */
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* Subtitle styling (h2) */
+        h2 {
+            text-align: center;
+            font-size: 28px;
+            color: #34495e;
+            margin-bottom: 30px;
+            font-family: 'Georgia', serif;
+            letter-spacing: 1px;
+        }
+
+        /* Table styling */
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        /* Header styling */
+        th {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        /* Row styling */
+        td {
+            padding: 12px 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        /* Alternate row coloring for better readability */
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Hover effect on rows */
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Button styling */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .signup-btn {
+            display: inline-block;
+            padding: 12px 20px;
+            margin: 0 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .signup-btn:hover {
+            background-color: #45a049;
+        }
+
+        /* Responsive design */
+        @media screen and (max-width: 768px) {
+            table {
+                width: 100%;
+            }
+
+            th, td {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .signup-btn {
+                margin: 10px 5px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Hello!! {{name}}</h1>
+<h2>Here is your Preferences List</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Preference Number</th>
+            <th>Category</th>
+            <th>Weight</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for preference in preferences %}
+        <tr>
+            <td>{{ preference.pref_no }}</td>
+            <td>{{ preference.Category }}</td>
+            <td>{{ preference.weightage }}</td>
+            <td>{{ preference.amount }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Button Container -->
+<div class="button-container">
+    <a href="customize" class="signup-btn">Customize</a>
+    <a href="" class="signup-btn">Save Preferences</a>
+</div>
+
+</body>
+</html>

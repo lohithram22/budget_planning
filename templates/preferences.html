@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preferences Page</title>
+<link rel="stylesheet" type="text/css" href="{%static '/preferences.css' %}">
+    <script defer src="{% static 'js/preferences.js' %}"></script>
+
+</head>
+<body>
+    <div class="background-text">Preferences</div>
+    <div class="form-container">
+
+<div class="form-container">
+    <h2>Preferences</h2>
+    <form id="preferences-form" action="preferences" method="post">
+        <!-- Preference Dropdowns -->
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="preference1">Preference 1</label>
+            <select id="preference1" name="preference 1" class="preference-dropdown">
+                <option value="">Select Category</option>
+                <!-- Add more options dynamically using JavaScript or Backend -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="preference2">Preference 2</label>
+            <select id="preference2"  name="preference 2" class="preference-dropdown">
+                <option value="">Select Category</option>
+                <!-- Add more options dynamically using JavaScript or Backend -->
+            </select>
+        </div>
+        <!-- Repeat this for all 11 preferences -->
+                <div class="form-group">
+            <label for="preference3">Preference 3</label>
+            <select id="preference3" name="preference 3" class="preference-dropdown">
+                <option value="">Select Category</option>
+                <!-- Add more options dynamically using JavaScript or Backend -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="preference4">Preference 4</label>
+            <select id="preference4" name="preference 4" class="preference-dropdown">
+                <option value="">Select Category</option>
+                <!-- Add more options dynamically using JavaScript or Backend -->
+            </select>
+        </div>
+                <div class="form-group">
+            <label for="preference5">Preference 5</label>
+            <select id="preference5" name="preference 5" class="preference-dropdown">
+                <option value="">Select Category</option>
+                <!-- Add more options dynamically using JavaScript or Backend -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="preference6">Preference 6</label>
+            <select id="preference6" name="preference 6" class="preference-dropdown">
+                <option value="">Select Category</option>
+                <!-- Add more options dynamically using JavaScript or Backend -->
+            </select>
+        </div>
+                <div class="form-group">
+            <label for="preference7">Preference 7</label>
+            <select id="preference7" name="preference 7" class="preference-dropdown">
+                <option value="">Select Category</option>
+                <!-- Add more options dynamically using JavaScript or Backend -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="preference8">Preference 8</label>
+            <select id="preference8" name="preference 8" class="preference-dropdown">
+                <option value="">Select Category</option>
+                <!-- Add more options dynamically using JavaScript or Backend -->
+            </select>
+        </div>
+                <div class="form-group">
+            <label for="preference9">Preference 9</label>
+            <select id="preference9" name="preference 9" class="preference-dropdown">
+                <option value="">Select Category</option>
+                <!-- Add more options dynamically using JavaScript or Backend -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="preference10">Preference 10</label>
+            <select id="preference10" name="preference 10" class="preference-dropdown">
+                <option value="">Select Category</option>
+                <!-- Add more options dynamically using JavaScript or Backend -->
+            </select>
+        </div>
+                <div class="form-group">
+            <label for="preference11">Preference 11</label>
+            <select id="preference11" name="preference 11" class="preference-dropdown">
+                <option value="">Select Category</option>
+                <!-- Add more options dynamically using JavaScript or Backend -->
+            </select>
+        </div>
+
+                <div class="form-group">
+            <label for="preference12">Preference 12</label>
+            <select id="preference12" name="preference 12" class="preference-dropdown">
+                <option value="">Select Category</option>
+                <!-- Add more options dynamically using JavaScript or Backend -->
+            </select>
+</div>
+                      <div class="form-group">
+            <label for="preference13">Preference 13</label>
+            <select id="preference13" name="preference 13" class="preference-dropdown">
+                <option value="">Select Category</option>
+                <!-- Add more options dynamically using JavaScript or Backend -->
+            </select>
+</div>
+             <button type="submit">Submit</button>
+    </form>
+</div>
+</div>
+        <!-- Submit Button -->
+
+
+</body>
+</html>

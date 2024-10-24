@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preferences List</title>
+    <style>
+        /* General styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #e9ecef;
+        }
+
+        /* Title styling (h1) */
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: #2f3640;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        /* Subtitle styling (h2) */
+        h2 {
+            text-align: center;
+            font-size: 28px;
+            color: #576574;
+            margin-bottom: 30px;
+            font-family: 'Georgia', serif;
+            letter-spacing: 1px;
+        }
+
+        /* Table styling */
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        /* Header styling */
+        th {
+            background-color: #1e3799;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        /* Row styling */
+        td {
+            padding: 14px 20px;
+            border: 1px solid #e0e0e0;
+            text-align: left;
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* Alternate row coloring for better readability */
+        tr:nth-child(even) {
+            background-color: #f7f7f7;
+        }
+
+        /* Hover effect on rows */
+        tr:hover {
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+
+        /* Button styling */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 30px;
+            margin: 0 15px;
+            background-color: #1e3799;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #3c6382;
+        }
+
+        /* Responsive design */
+        @media screen and (max-width: 768px) {
+            table {
+                width: 100%;
+            }
+
+            th, td {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .btn {
+                margin: 10px 5px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Here is your Budget Plan</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Preference Number</th>
+            <th>Category</th>
+            <th>Weight</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for preference in preferences %}
+        <tr>
+            <td>{{ preference.pref_no }}</td>
+            <td>{{ preference.Category }}</td>
+            <td>{{ preference.weightage }}</td>
+            <td>{{ preference.amount }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Button Container -->
+<div class="button-container">
+    <a href="customize" class="btn">Customize</a>
+    <a href="" class="btn">Save Preferences</a>
+</div>
+
+</body>
+</html>
