@@ -26,5 +26,6 @@ urlpatterns = [
     path('preferences',include('preferences.urls')),
     path('customize',include('customize.urls')),
     path('root',include('root.urls')),
-    path('budget_plan',include('budget_plan.urls'))
+    path('budget_plan',include('budget_plan.urls')),
+    path('visualise',include('visualisation.urls'))
 ]
