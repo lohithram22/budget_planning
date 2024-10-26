@@ -29,26 +29,16 @@ def customize(request):
         if not weightage and amount:
 
             old_amt=preferences.amount
-            print(old_amt)
-            print(type(old_amt))
             new_amt=amount
-            print(new_amt)
-            print(type(new_amt))
             if old_amt<new_amt:
                 need_amt=new_amt-old_amt
-                print(need_amt)
+                print("idi kaavalasina amount ra",need_amt)
                 pref_no=13
                 total=0
                 while(preferences.is_constant !=True):
-
                     if pref_no==0:
                         pref_no=13
                     pref=Preferences.objects.get(user_id=user,pref_no=pref_no)
-                    print(pref.amount)
-                    print(type(pref.amount))
-                    print("ahh ayipoindhi ",pref.amount<=amount)
-                    print(pref.is_constant ==True)
-
                     if pref.Category==category:
                         pref_no-=1
                     if pref.amount<=need_amt:
@@ -58,9 +48,9 @@ def customize(request):
                     elif pref.amount>need_amt:
                         contrib=int(need_amt/10)
                         pref.amount=pref.amount-contrib
+                        print(contrib, " taken from the category ", pref.Category)
                         total+=contrib
                         pref.save()
-                        print(pref.amount)
                         if total==need_amt:
                             preferences.amount+=total
                             preferences.save()
@@ -70,26 +60,36 @@ def customize(request):
                             continue
             elif old_amt>new_amt:
                 need_amt=old_amt-new_amt
+                left=0
+                if need_amt%10 != 0:
+                    left = need_amt % 10
+                    need_amt = need_amt - left
+                    print("Idi kaavalasina amount ra babu ", need_amt,"idi left over ra",left)
                 pref_no=1
                 total = 0
                 while (preferences.is_constant !=True):
                     if pref_no == 14:
                         pref_no = 1
                     pref = Preferences.objects.get(user_id=user, pref_no=pref_no)
-                    print(pref.amount)
-                    print(type(pref.amount))
                     if pref.Category==category:
                         pref_no+=1
                     if pref.is_constant == True:
                         pref_no = pref_no + 1
                     else:
+
+                        if pref_no==13:
+                            pref.amount=pref.amount-left
+                            pref.save()
+                            total+=left
+                            print("aaaa left add chessan chuud total ki ",left,"idi left add chesaka amount uu",pref.amount)
                         contrib = int(need_amt / 10)
                         pref.amount = pref.amount + contrib
+                        print(contrib, " added to the category ", pref.Category)
                         total += contrib
                         pref.save()
-                        print(pref.amount)
                         if total == need_amt:
                             preferences.amount -= total
+
                             preferences.save()
                             break
                         else:
@@ -149,6 +149,12 @@ def customize(request):
                             break
 
         print(preferences.pref_no)
+        if is_constant:
+            preferences.is_constant = True
+            preferences.save()
+        else:
+            preferences.is_constant = False
+            preferences.save()
         return redirect("root")
 
     return render(request,'customize.html')

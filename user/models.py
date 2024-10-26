@@ -6,7 +6,7 @@ class User_data(AbstractUser):
     first_name=models.CharField(max_length=30)
     middle_name=models.CharField(max_length=30)
     last_name=models.CharField(max_length=30)
-    email=models.CharField(max_length=30)
+    email=models.CharField(max_length=30,unique=True)
     password=models.CharField(max_length=30)
     phone_no=models.BigIntegerField()
     gender=models.CharField(max_length=10)
