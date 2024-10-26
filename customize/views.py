@@ -23,6 +23,9 @@ def customize(request):
         print(u_id)
         user=User_data.objects.get(user_id=u_id)
         preferences=Preferences.objects.get(Category=category,user_id=user)
+        if preferences.is_constant == True:
+            return redirect("root")
+        salary=user.salary
         if not weightage and amount:
 
             old_amt=preferences.amount
@@ -36,7 +39,8 @@ def customize(request):
                 print(need_amt)
                 pref_no=13
                 total=0
-                while(True):
+                while(preferences.is_constant !=True):
+
                     if pref_no==0:
                         pref_no=13
                     pref=Preferences.objects.get(user_id=user,pref_no=pref_no)
@@ -44,6 +48,9 @@ def customize(request):
                     print(type(pref.amount))
                     print("ahh ayipoindhi ",pref.amount<=amount)
                     print(pref.is_constant ==True)
+
+                    if pref.Category==category:
+                        pref_no-=1
                     if pref.amount<=need_amt:
                         pref_no=pref_no-1
                     elif pref.is_constant ==True:
@@ -53,6 +60,7 @@ def customize(request):
                         pref.amount=pref.amount-contrib
                         total+=contrib
                         pref.save()
+                        print(pref.amount)
                         if total==need_amt:
                             preferences.amount+=total
                             preferences.save()
@@ -60,8 +68,35 @@ def customize(request):
                         else:
                             pref_no-=1
                             continue
+            elif old_amt>new_amt:
+                need_amt=old_amt-new_amt
+                pref_no=1
+                total = 0
+                while (preferences.is_constant !=True):
+                    if pref_no == 14:
+                        pref_no = 1
+                    pref = Preferences.objects.get(user_id=user, pref_no=pref_no)
+                    print(pref.amount)
+                    print(type(pref.amount))
+                    if pref.Category==category:
+                        pref_no+=1
+                    if pref.is_constant == True:
+                        pref_no = pref_no + 1
                     else:
-                        return HttpResponse("avvad ra babu ")
+                        contrib = int(need_amt / 10)
+                        pref.amount = pref.amount + contrib
+                        total += contrib
+                        pref.save()
+                        print(pref.amount)
+                        if total == need_amt:
+                            preferences.amount -= total
+                            preferences.save()
+                            break
+                        else:
+                            pref_no += 1
+                            continue
+
+
 
         elif not amount and weightage:
             old_weight=preferences.weightage

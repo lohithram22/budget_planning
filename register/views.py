@@ -19,7 +19,7 @@ def register(request):
         request.session.flush()
         u_id=User_data.objects.get(email=email)
         print(u_id)
-        request.session['user_data']={'user_id':u_id.user_id,'salary':u_id.salary}
+        request.session['user_data']={'user_id':u_id.user_id,'salary':u_id.salary,'name':u_id.first_name}
         return redirect('preferences')
     else:
         return render(request,"register.html")

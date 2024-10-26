@@ -6,5 +6,5 @@ def budget_plan(request):
     print(data)
     u_id = data["user_id"]
     user=User_data.objects.get(user_id=u_id)
-    preferences=Preferences.objects.filter(user_id=user)
+    preferences=Preferences.objects.filter(user_id=user).order_by('pref_no')
     return render(request,"budget_plan.html",{'preferences':preferences})
