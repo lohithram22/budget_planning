@@ -141,11 +141,15 @@
         <p>&copy; 2024 Smart Budget Planner. All Rights Reserved. | <a href="#">Privacy Policy</a></p>
     </footer>
 
+<script id="categories" type="application/json">{{ categories|safe }}</script>
+<script id="amounts" type="application/json">{{ amounts|safe }}</script>
     <!-- Chart.js Script for the Bar and Pie Charts -->
     <script>
+        // Get the categories and amounts from Django
+        const categories = JSON.parse(document.getElementById('categories').textContent);
+        const amounts = JSON.parse(document.getElementById('amounts').textContent);
+
         // Bar Chart
-            var categories = {{ categories }};
-    var amount = {{ amounts }};
         const ctxBar = document.getElementById('barChart').getContext('2d');
         const barChart = new Chart(ctxBar, {
             type: 'bar',
@@ -153,8 +157,8 @@
                 labels: categories,
                 datasets: [{
                     label: 'Expenses in $',
-                    data: amount,
-                    backgroundColor: ['#e74c3c', '#3498db', '#2ecc71', '#f1c40f', '#9b59b6'],
+                    data: amounts,
+                    backgroundColor: ['#e74c3c', '#3498db', '#2ecc71', '#f1c40f', '#9b59b6','#1ced81','#921ced','#a1b304','#a3f2f7','#edabeb','#467a4f','#777a46','#a478c4'],
                     borderWidth: 1
                 }]
             },
@@ -173,11 +177,11 @@
         const pieChart = new Chart(ctxPie, {
             type: 'pie',
             data: {
-                labels: {{categories}},
+                labels: categories,
                 datasets: [{
                     label: 'Expense Distribution',
-                    data: {{amount}},
-                    backgroundColor: ['#e74c3c', '#3498db', '#2ecc71', '#f1c40f', '#9b59b6'],
+                    data: amounts,
+                    backgroundColor: ['#e74c3c', '#3498db', '#2ecc71', '#f1c40f', '#9b59b6','#1ced81','#921ced','#a1b304','#a3f2f7','#edabeb','#467a4f','#777a46','#a478c4'],
                     borderWidth: 1
                 }]
             },
@@ -186,5 +190,7 @@
             }
         });
     </script>
+
+
 </body>
 </html>

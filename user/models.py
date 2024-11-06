@@ -19,6 +19,7 @@ class Preferences(models.Model):
     weightage=models.PositiveIntegerField()
     amount=models.PositiveIntegerField()
     is_constant=models.BooleanField(default=False)
+    expenses=models.PositiveIntegerField(default=0)
 
 
 

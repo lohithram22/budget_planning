@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from user.models import Preferences,User_data
 # Create your views here.
+import json
 def visualise(request):
     user_data=request.session.get("user_data",{})
     u_id=user_data["user_id"]
@@ -10,8 +11,9 @@ def visualise(request):
     weights = [pref.weightage for pref in preferences]
     amount = [pref.amount for pref in preferences]
     context={
-        'categories':categories,
-        'amount':amount
+        'categories': json.dumps(categories),
+        'amounts': json.dumps(amount),
     }
 
-    return render(request,'visualisation.html', {"categories":categories,"amount":amount},context=context)
+    return render(request,'visualisation.html',context)
+# {"categories":categories,"amount":amount}
