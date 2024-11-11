@@ -72,10 +72,11 @@
         /* Visualization section */
         .visualization-container {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
-            padding: 50px;
+            padding: 20px;
             background-color: #fff;
+            position: relative;
         }
 
         .chart-box {
@@ -91,6 +92,33 @@
             height: 400px !important;
         }
 
+
+
+     .button-container {
+    display: flex;
+    justify-content: center; /* Centers the button horizontally */
+    align-items: center; /* Centers the button vertically (if needed) */
+    height: 10vh; /* Optional: centers vertically if applied to a full-height container */
+}
+
+.center-btn {
+    padding: 15px 30px;
+    background-color: #3498db;
+    color: white;
+    border: 2px solid #1a1a2e;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+
+        .center-btn:hover {
+            background-color: #e74c3c;
+            border-color: #e74c3c;
+        }
+
         /* Footer styling */
         footer {
             background-color: #1a1a2e;
@@ -103,10 +131,70 @@
             color: #e74c3c;
             text-decoration: none;
         }
+
     </style>
+      <script>
+        function toggleFields() {
+            var weightField = document.getElementById('weightage');
+            var amountField = document.getElementById('amount');
+
+            if (weightField.value !== '') {
+                amountField.disabled = true;
+            } else {
+                amountField.disabled = false;
+            }
+
+            if (amountField.value !== '') {
+                weightField.disabled = true;
+            } else {
+                weightField.disabled = false;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const preferences = [
+                'Education', 'Entertainment', 'Medical', 'Food',
+                'Transportation', 'Kids', 'Pets', 'Clothing',
+                'Savings', 'Maintenance', 'Personal Expenses', 'EMI', 'Other'
+            ];
+
+            const dropdowns = document.querySelectorAll('.preference-dropdown');
+
+            dropdowns.forEach(dropdown => {
+                preferences.forEach(pref => {
+                    const option = document.createElement('option');
+                    option.value = pref;
+                    option.text = pref;
+                    dropdown.appendChild(option);
+                });
+            });
+
+            function updateDropdowns() {
+                const selectedValues = Array.from(dropdowns)
+                    .map(dropdown => dropdown.value)
+                    .filter(value => value !== '');
+
+                dropdowns.forEach(dropdown => {
+                    Array.from(dropdown.options).forEach(option => {
+                        if (selectedValues.includes(option.value) && option.value !== dropdown.value) {
+                            option.disabled = true;
+                        } else {
+                            option.disabled = false;
+                        }
+                    });
+                });
+            }
+
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('change', updateDropdowns);
+            });
+        });
+    </script>
 </head>
 
 <body>
+<form action="visualisation" method="post">
+    {% csrf_token %}
     <!-- Navbar -->
     <div class="navbar">
         <div class="logo">
@@ -130,19 +218,29 @@
             <h3 style="text-align: center;">Monthly Expenses (Bar Chart)</h3>
             <canvas id="barChart"></canvas>
         </div>
+
         <div class="chart-box">
             <h3 style="text-align: center;">Expense Distribution (Pie Chart)</h3>
             <canvas id="pieChart"></canvas>
         </div>
     </section>
 
+
+        </div>
+            <div class="button-container">
+
+             <a href="individual_category" class="center-btn">Visualise Indi</a>
+        </div>
+        </div>
+</form>
     <!-- Footer -->
     <footer>
         <p>&copy; 2024 Smart Budget Planner. All Rights Reserved. | <a href="#">Privacy Policy</a></p>
     </footer>
 
-<script id="categories" type="application/json">{{ categories|safe }}</script>
-<script id="amounts" type="application/json">{{ amounts|safe }}</script>
+    <script id="categories" type="application/json">{{ categories|safe }}</script>
+    <script id="amounts" type="application/json">{{ amounts|safe }}</script>
+
     <!-- Chart.js Script for the Bar and Pie Charts -->
     <script>
         // Get the categories and amounts from Django
@@ -190,7 +288,5 @@
             }
         });
     </script>
-
-
 </body>
 </html>

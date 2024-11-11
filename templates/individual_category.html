@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Budget Planner - Data Visualization</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Chart.js for Graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom Styles -->
+    <style>
+        /* General styling */
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f5f7;
+            color: #333;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 80px;
+            background-color: #1a1a2e;
+            color: white;
+        }
+
+        .navbar .logo a {
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .navbar .nav-links a {
+            margin-left: 35px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .navbar .nav-links a:hover {
+            color: #e74c3c;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #1a1a2e;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #e74c3c;
+            text-decoration: none;
+        }
+
+        /* Centered Chart Section */
+        .chart-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 70vh;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        .chart-section h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1a1a2e;
+        }
+
+        .chart-box {
+            width: 60%;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-box canvas {
+            width: 100% !important;
+            height: 500px !important;
+        }
+    </style>
+</head>
+<body>
+<form action="individual_category" method="post"></form>
+    {% csrf_token %}
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <a href="#">Smart Budget Planner</a>
+        </div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Contact</a>
+            <a href="#">About</a>
+        </div>
+    </div>
+
+    <!-- Chart Section -->
+    <section class="chart-section">
+        <h1>Monthly Expenses Breakdown</h1>
+        <div class="chart-box">
+            <canvas id="centeredBarChart"></canvas>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Smart Budget Planner. All Rights Reserved. | <a href="#">Privacy Policy</a></p>
+    </footer>
+
+    <!-- Chart.js Script for the Centered Bar Chart -->
+    <script>
+        // Generate random data for the chart
+        function getRandomData(numItems, min, max) {
+            const data = [];
+            for (let i = 0; i < numItems; i++) {
+                data.push(Math.floor(Math.random() * (max - min + 1)) + min);
+            }
+            return data;
+        }
+
+        // Random labels and data
+        const labels = ['Education', 'Entertainment', 'Medical', 'Food', 'Kids', 'Transportation', 'Pets', 'Savings', 'Clothing', 'Personal Expenses'];
+        const data = getRandomData(labels.length, 500, 5000); // Generating random data between 500 and 5000
+
+        // Centered Bar Chart
+        const ctxBar = document.getElementById('centeredBarChart').getContext('2d');
+        const centeredBarChart = new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Expenses in $',
+                    data: data,
+                    backgroundColor: ['#e74c3c', '#3498db', '#2ecc71', '#f1c40f', '#9b59b6', '#1ced81', '#921ced', '#a1b304', '#a3f2f7', '#edabeb'],
+                    borderColor: '#1a1a2e',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        /* Dropdown and button container */
+        .dropdown-container {
+            position: absolute;
+            left: 43%;
+            transform: translateX(-40%);
+             transform: translateY(-150%);
+
+            padding: 40px;
+            background-color: #f4f5f7;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        /* Dropdown styling */
+        .dropdown-container select {
+            width: 100%;
+            padding: 20px;
+            font-size: 16px;
+            border: 2px solid #3498db;
+            border-radius: 5px;
+            background-color: #fff;
+            margin-bottom: 20px;
+        }
+    </script>
+
+</body>
+</html>

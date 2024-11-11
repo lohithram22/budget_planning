@@ -28,5 +28,6 @@ urlpatterns = [
     path('root',include('root.urls')),
     path('budget_plan',include('budget_plan.urls')),
     path('visualise',include('visualisation.urls')),
-    path('update_expenses',include('update_expenses.urls'))
+    path('update_expenses',include('update_expenses.urls')),
+    path('individual_category',include('individual_category.urls'))
 ]
