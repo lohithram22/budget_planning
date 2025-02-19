@@ -94,13 +94,15 @@
 
 
 
-     .button-container {
+  /* Adjusted Button Container */
+.button-container {
     display: flex;
     justify-content: center; /* Centers the button horizontally */
-    align-items: center; /* Centers the button vertically (if needed) */
-    height: 10vh; /* Optional: centers vertically if applied to a full-height container */
+    align-items: center; /* Centers the button vertically */
+    padding: 20px; /* Adds spacing around the button */
 }
 
+/* Button Styling */
 .center-btn {
     padding: 15px 30px;
     background-color: #3498db;
@@ -113,11 +115,10 @@
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-
-        .center-btn:hover {
-            background-color: #e74c3c;
-            border-color: #e74c3c;
-        }
+.center-btn:hover {
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+}
 
         /* Footer styling */
         footer {
@@ -229,7 +230,7 @@
         </div>
             <div class="button-container">
 
-             <a href="individual_category" class="center-btn">Visualise Indi</a>
+             <a href="individual_category" class="center-btn">Visualise Individual</a>
         </div>
         </div>
 </form>

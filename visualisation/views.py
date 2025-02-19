@@ -3,7 +3,6 @@ from user.models import Preferences,User_data
 # Create your views here.
 import json
 def visualise(request):
-
         user_data = request.session.get("user_data", {})
         u_id = user_data["user_id"]
         user = User_data.objects.get(user_id=u_id)

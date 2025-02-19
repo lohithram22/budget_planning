@@ -14,18 +14,25 @@ from pathlib import Path
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
+from environ import Env
+env=Env()
+env.read_env("D:\\Django Projects\\Budget\\.env")
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-vr%1vsd1yc0wwe6&)kv!xor9v1k&w9a*ce$@@7-7$s!4a)x&ys'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+ENVIRONMENT=env('ENVIRONMENT',default="production")
 
-ALLOWED_HOSTS = []
+if ENVIRONMENT=='development':
+
+    DEBUG = True
+else:
+    DEBUG=False
+
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -82,14 +89,19 @@ WSGI_APPLICATION = 'budget.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'budget',
-        'USER':'postgres',
-        'PASSWORD':'Pkalyanram143*',
-        'HOST':'localhost',
-        'PORT':'5432'
+        'NAME': env('DB_NAME'),
+        'USER':env('DB_USER'),
+        'PASSWORD':env('DB_PASSWORD'),
+        'HOST':env('DB_HOST'),
+        'PORT':env('DB_PORT')
     }
 }
-
+#PGHOST
+#PGPORT
+#PGUSER
+#PGPASSWORD
+#PGDATABASE
+#DATABASE_URL
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

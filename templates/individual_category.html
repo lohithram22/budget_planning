@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Budget Planner - Data Visualization</title>
+
+    <!-- Title -->
+    <title>Smart Budget Planner - Category Visualizer</title>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -14,10 +15,10 @@
 
     <!-- Chart.js for Graphs -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 
     <!-- Custom Styles -->
     <style>
-        /* General styling */
         body {
             margin: 0;
             font-family: 'Roboto', sans-serif;
@@ -25,7 +26,6 @@
             color: #333;
         }
 
-        /* Navbar styling */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -53,54 +53,204 @@
             color: #e74c3c;
         }
 
-        /* Footer styling */
-        footer {
+        .page-header {
             background-color: #1a1a2e;
             color: white;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .page-header h1 {
+            margin: 0;
+            font-size: 36px;
+            font-weight: 700;
+        }
+
+        .visualization-container {
             padding: 20px;
             text-align: center;
-        }
-
-        footer a {
-            color: #e74c3c;
-            text-decoration: none;
-        }
-
-        /* Centered Chart Section */
-        .chart-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 70vh;
-            padding: 20px;
             background-color: #fff;
         }
 
-        .chart-section h1 {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: #1a1a2e;
+        /* Dropdown Styling */
+        .dropdown-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
         }
 
+        .dropdown-container select {
+            padding: 10px;
+            width: 200px;
+            font-size: 16px;
+            border: 2px solid #1a1a2e;
+            border-radius: 5px;
+        }
+
+        /* Button Styling */
+        .center-btn {
+            margin-top: 20px;
+            padding: 15px 30px;
+            background-color: #3498db;
+            color: white;
+            border: 2px solid #1a1a2e;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .center-btn:hover {
+            background-color: #e74c3c;
+            border-color: #e74c3c;
+        }
+
+        /* Graph Section */
         .chart-box {
-            width: 60%;
+            margin-top: 40px;
             padding: 20px;
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .chart-box canvas {
+        canvas {
             width: 100% !important;
-            height: 500px !important;
+            height: 400px !important;
         }
     </style>
+
+    <!-- JSON Data to be Injected by Backend (Flask/Django) -->
+    <script id="data" type="application/json">{{ data|safe }}</script>
+    <script id="label" type="application/json">{{ label|safe }}</script>
+
+    <!-- Script for Dropdown and Graph -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get data and labels from the JSON script tags
+        const data = JSON.parse(document.getElementById('data').textContent);
+        const labels = JSON.parse(document.getElementById('label').textContent);
+
+        // Function to update the chart
+        function updateChart() {
+            const ctx = document.getElementById('categoryChart').getContext('2d');
+
+            // Destroy existing chart if any before creating a new one
+            if (window.myBarChart) {
+                window.myBarChart.destroy();
+            }
+
+            // Create a new chart using Chart.js
+            window.myBarChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Expenses in $',
+                        data: data,
+                        backgroundColor: ['#e74c3c', '#3498db'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        // This plugin displays the value on top of each bar
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'top',
+                            color: '#000',
+                            font: {
+                                weight: 'bold'
+                            },
+                            formatter: function(value) {
+                                return '$' + value;
+                            }
+                        }
+                    }
+                },
+                plugins: [ChartDataLabels] // Enable the datalabels plugin
+            });
+        }
+
+        // Handle the visualize button click event
+        document.getElementById('visualizeBtn').addEventListener('click', function (e) {
+            e.preventDefault(); // Prevent form submission
+            updateChart(); // Update the chart with current data
+        });
+    });
+</script>
+
+    <script>
+        function toggleFields() {
+            var weightField = document.getElementById('weightage');
+            var amountField = document.getElementById('amount');
+
+            if (weightField.value !== '') {
+                amountField.disabled = true;
+            } else {
+                amountField.disabled = false;
+            }
+
+            if (amountField.value !== '') {
+                weightField.disabled = true;
+            } else {
+                weightField.disabled = false;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const preferences = [
+                'Education', 'Entertainment', 'Medical', 'Food',
+                'Transportation', 'Kids', 'Pets', 'Clothing',
+                'Savings', 'Maintenance', 'Personal Expenses', 'EMI', 'Other'
+            ];
+
+            const dropdowns = document.querySelectorAll('.preference-dropdown');
+
+            dropdowns.forEach(dropdown => {
+                preferences.forEach(pref => {
+                    const option = document.createElement('option');
+                    option.value = pref;
+                    option.text = pref;
+                    dropdown.appendChild(option);
+                });
+            });
+
+            function updateDropdowns() {
+                const selectedValues = Array.from(dropdowns)
+                    .map(dropdown => dropdown.value)
+                    .filter(value => value !== '');
+
+                dropdowns.forEach(dropdown => {
+                    Array.from(dropdown.options).forEach(option => {
+                        if (selectedValues.includes(option.value) && option.value !== dropdown.value) {
+                            option.disabled = true;
+                        } else {
+                            option.disabled = false;
+                        }
+                    });
+                });
+            }
+
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('change', updateDropdowns);
+            });
+        });
+    </script>
 </head>
+
 <body>
-<form action="individual_category" method="post"></form>
-    {% csrf_token %}
     <!-- Navbar -->
     <div class="navbar">
         <div class="logo">
@@ -113,83 +263,31 @@
         </div>
     </div>
 
-    <!-- Chart Section -->
-    <section class="chart-section">
-        <h1>Monthly Expenses Breakdown</h1>
-        <div class="chart-box">
-            <canvas id="centeredBarChart"></canvas>
-        </div>
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>Visualize Category Expense</h1>
     </section>
+
+    <form action="individual_category" method="post">
+        <!-- Visualization Section -->
+        {% csrf_token %}
+        <section class="visualization-container">
+            <div class="dropdown-container">
+                <select name="category" id="categoryDropdown" class="preference-dropdown">
+                    <option value="">Select a Category</option>
+                </select>
+                <button type="submit" id="visualizeBtn" class="center-btn">Visualize</button>
+            </div>
+
+            <div class="chart-box">
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </section>
+    </form>
 
     <!-- Footer -->
     <footer>
         <p>&copy; 2024 Smart Budget Planner. All Rights Reserved. | <a href="#">Privacy Policy</a></p>
     </footer>
-
-    <!-- Chart.js Script for the Centered Bar Chart -->
-    <script>
-        // Generate random data for the chart
-        function getRandomData(numItems, min, max) {
-            const data = [];
-            for (let i = 0; i < numItems; i++) {
-                data.push(Math.floor(Math.random() * (max - min + 1)) + min);
-            }
-            return data;
-        }
-
-        // Random labels and data
-        const labels = ['Education', 'Entertainment', 'Medical', 'Food', 'Kids', 'Transportation', 'Pets', 'Savings', 'Clothing', 'Personal Expenses'];
-        const data = getRandomData(labels.length, 500, 5000); // Generating random data between 500 and 5000
-
-        // Centered Bar Chart
-        const ctxBar = document.getElementById('centeredBarChart').getContext('2d');
-        const centeredBarChart = new Chart(ctxBar, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Expenses in $',
-                    data: data,
-                    backgroundColor: ['#e74c3c', '#3498db', '#2ecc71', '#f1c40f', '#9b59b6', '#1ced81', '#921ced', '#a1b304', '#a3f2f7', '#edabeb'],
-                    borderColor: '#1a1a2e',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-        /* Dropdown and button container */
-        .dropdown-container {
-            position: absolute;
-            left: 43%;
-            transform: translateX(-40%);
-             transform: translateY(-150%);
-
-            padding: 40px;
-            background-color: #f4f5f7;
-            border-radius: 10px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            text-align: center;
-        }
-
-        /* Dropdown styling */
-        .dropdown-container select {
-            width: 100%;
-            padding: 20px;
-            font-size: 16px;
-            border: 2px solid #3498db;
-            border-radius: 5px;
-            background-color: #fff;
-            margin-bottom: 20px;
-        }
-    </script>
-
 </body>
 </html>
