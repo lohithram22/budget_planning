@@ -15,7 +15,7 @@ class User_data(AbstractUser):
 class Preferences(models.Model):
     user_id=models.ForeignKey(User_data,on_delete=models.CASCADE)
     pref_no=models.IntegerField()
-    Category=models.CharField()
+    Category=models.CharField(max_length=32)
     weightage=models.PositiveIntegerField()
     amount=models.PositiveIntegerField()
     is_constant=models.BooleanField(default=False)
