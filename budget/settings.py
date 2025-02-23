@@ -26,7 +26,7 @@ env.read_env("D:\\Django Projects\\Budget\\.env")
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-ENVIRONMENT=env('ENVIRONMENT',default="production")
+ENVIRONMENT=env('ENVIRONMENT')
 
 if ENVIRONMENT=='development':
 
