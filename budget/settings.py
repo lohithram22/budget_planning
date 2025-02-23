@@ -84,6 +84,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'budget.wsgi.application'
 
+CSRF_COOKIE_SECURE = True
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
