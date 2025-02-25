@@ -29,7 +29,6 @@ SECRET_KEY = env('SECRET_KEY')
 ENVIRONMENT=env('ENVIRONMENT',default="developmet")
 
 if ENVIRONMENT=='development':
-
     DEBUG = True
 else:
     DEBUG=True
@@ -60,7 +59,6 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -84,7 +82,7 @@ TEMPLATES = [
     },
 ]
 
-CSRF_TRUSTED_ORIGINS = ['https://budgetplanning-production.up.railway.app/']
+CSRF_TRUSTED_ORIGINS = ['budgetplanning-production.up.railway.app']
 
 
 WSGI_APPLICATION = 'budget.wsgi.application'
