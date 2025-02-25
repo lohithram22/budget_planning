@@ -34,8 +34,8 @@ if ENVIRONMENT=='development':
 else:
     DEBUG=True
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = ['budgetplanning-production.up.railway.app','localhost']
+ALLOWED_ORIGINS=["budgetplanning-production.up.railway.app"]
 
 # Application definition
 
