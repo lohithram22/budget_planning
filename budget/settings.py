@@ -33,7 +33,7 @@ if ENVIRONMENT=='development':
 else:
     DEBUG=True
 
-ALLOWED_HOSTS = ['budgetplanning-production.up.railway.app','localhost']
+#ALLOWED_HOSTS = ['budgetplanning-production.up.railway.app','localhost']
 ALLOWED_ORIGINS=['*']
 
 # Application definition
@@ -65,7 +65,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'budget.urls'
-env("CSRF_COOKIE_SECURE")
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -82,7 +82,7 @@ TEMPLATES = [
     },
 ]
 
-CSRF_TRUSTED_ORIGINS = ['https://budgetplanning-production.up.railway.app/']
+CSRF_TRUSTED_ORIGINS = ['https://budgetplanning-production.up.railway.app/*']
 
 
 WSGI_APPLICATION = 'budget.wsgi.application'
