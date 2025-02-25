@@ -34,7 +34,7 @@ else:
     DEBUG=True
 
 ALLOWED_HOSTS = ['budgetplanning-production.up.railway.app','localhost']
-ALLOWED_ORIGINS=["budgetplanning-production.up.railway.app"]
+ALLOWED_ORIGINS=["https://budgetplanning-production.up.railway.app/"]
 
 # Application definition
 
