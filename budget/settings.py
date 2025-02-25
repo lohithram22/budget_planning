@@ -82,7 +82,7 @@ TEMPLATES = [
     },
 ]
 
-CSRF_TRUSTED_ORIGINS = ['budgetplanning-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://budgetplanning-production.up.railway.app/']
 
 
 WSGI_APPLICATION = 'budget.wsgi.application'
